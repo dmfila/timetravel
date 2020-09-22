@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+import FlipDown from './flipdown';
+
+import './flipdown.css';
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    const untilDate = new Date("2020-09-30T00:00:00.000Z").getTime() / 1000;
+
+    new FlipDown(untilDate)
+      .start() // Start the countdown
+      .ifEnded(() => { // Do something when the countdown ends
+        console.log('Time travel is released');
+      });
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{backgroundImage: `url(${require('./assets/background.jpg')})`}}>
+      <div className="counter-wrapper">
+        <div id="flipdown" className="flipdown"></div>
+      </div>
     </div>
   );
 }
